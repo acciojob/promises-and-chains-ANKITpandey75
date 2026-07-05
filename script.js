@@ -1,29 +1,29 @@
-document.getElementById("form").addEventListener("submit", function (e) {
+const form = document.getElementById("myForm");
+
+form.addEventListener("submit", function (e) {
   e.preventDefault();
 
   const age = document.getElementById("age").value;
-  const name = document.getElementById("name").value.trim();
+  const name = document.getElementById("name").value;
 
-  if (age === "" || name === "") {
+  if (age === "" || name.trim() === "") {
     alert("Please enter valid details.");
     return;
   }
 
-  const promise = new Promise((resolve, reject) => {
+  new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (Number(age) > 18) {
-        resolve(`Welcome, ${name}. You can vote.`);
+      if (parseInt(age) > 18) {
+        resolve();
       } else {
-        reject(`Oh sorry ${name}. You aren't old enough.`);
+        reject();
       }
     }, 4000);
-  });
-
-  promise
-    .then((message) => {
-      alert(message);
+  })
+    .then(() => {
+      alert(`Welcome, ${name}. You can vote.`);
     })
-    .catch((message) => {
-      alert(message);
+    .catch(() => {
+      alert(`Oh sorry ${name}. You aren't old enough.`);
     });
-});//your JS code here. If required.
+});
