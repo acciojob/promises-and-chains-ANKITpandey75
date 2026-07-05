@@ -1,20 +1,8 @@
-const form = document.getElementById("voter-form");
+const button = document.getElementById("btn");
 const ageInput = document.getElementById("age");
 const nameInput = document.getElementById("name");
 
-function checkVotingEligibility(name, age) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (age > 18) {
-        resolve(`Welcome, ${name}. You can vote.`);
-      } else {
-        reject(`Oh sorry ${name}. You aren't old enough.`);
-      }
-    }, 4000);
-  });
-}
-
-form.addEventListener("submit", function (event) {
+button.addEventListener("click", function (event) {
   event.preventDefault();
 
   const age = ageInput.value;
@@ -25,7 +13,17 @@ form.addEventListener("submit", function (event) {
     return;
   }
 
-  checkVotingEligibility(name, Number(age))
+  const promise = new Promise(function (resolve, reject) {
+    setTimeout(function () {
+      if (Number(age) > 18) {
+        resolve(`Welcome, ${name}. You can vote.`);
+      } else {
+        reject(`Oh sorry ${name}. You aren't old enough.`);
+      }
+    }, 4000);
+  });
+
+  promise
     .then(function (message) {
       alert(message);
     })
